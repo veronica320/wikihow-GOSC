@@ -15,7 +15,7 @@ Sample data can be downloaded from [here]().
 
 ### Pretrained models
 
-The pretrained models can be downloaded from [here]().
+The pretrained models can be downloaded from [here](https://gofile.io/d/Yk9QII) (Passcode:wikihowgosc).
 
 
 
