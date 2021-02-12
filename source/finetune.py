@@ -7,11 +7,11 @@ import os
 import sys
 import argparse
 
-root_dir = '/path/to/wikihow-GOSC' # specify your own
+# root_dir = '/path/to/wikihow-GOSC' # specify your own
 # os.environ['PYTORCH_TRANSFORMERS_CACHE']="/path/to/.cache/transformers" # specify your own
 
 # Example:
-root_dir = '/nlp/data/lyuqing-zharry/wikihow_probing/wikihow-GOSC'
+root_dir = '/nlp/data/lyuqing-zharry/wikihow-GOSC'
 os.environ['PYTORCH_TRANSFORMERS_CACHE']= "/nlp/data/lyuqing-zharry/wikihow_probing/.cache/transformers"
 
 os.chdir(root_dir)
@@ -159,7 +159,7 @@ if args.mode == 'train_eval':
                 --overwrite_output \
                 --fp16 \
                 --prob \
-                --logging_steps {args.logging_steps}'
+                --logging_steps {args.logstep}'
              )
     
 ## eval only

@@ -13,7 +13,7 @@ Note that the yml file might be overkilling, since it also contains dependencies
 
 ### Data
 
-Sample data can be downloaded from [here]() (Passcode:wikihowgosc), and put under `data_dir/`.
+Sample data can be downloaded from [here](https://gofile.io/d/Y9va9V) (Passcode:wikihowgosc), and put under `data_dir/`.
 
 ### Pretrained models
 
@@ -54,7 +54,9 @@ The pretrained models can be downloaded from [here](https://gofile.io/d/Yk9QII) 
 
 * Prepare your data according to the sample format. Put the `train.tsv` and `dev.tsv` files under `data_dir/{subtask_name}/`.
 
-* Run 
+* Specify your own paths at the beginning of `finetune.py`.
+
+* Go to `source/`, and run 
 
 ```
 python finetune.py --mode train_eval --model [model_name] --max_seq_length [max_seq_length] --target [subtask_name] --t_bsize [t_bsize] --e_bsize [e_bsize] --lr [lr] --epochs [epochs] --logstep [logstep] --save_steps [savestep] --cuda [cuda]
@@ -79,7 +81,9 @@ If you'd like to finetune pretrained models, set it as the name of the model dir
 
 * Prepare your data according to the sample format. Put the `dev.tsv` file under `data_dir/{subtask_name}/`.
 
-* Run 
+* Specify your own paths at the beginning of `finetune.py`.
+
+* Go to `source/`, and run 
 
 ```
 python finetune.py --mode eval --model [model_name] --max_seq_length [max_seq_length] --target [subtask_name] --e_bsize [e_bsize] --cuda [cuda]
