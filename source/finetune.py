@@ -7,8 +7,13 @@ import os
 import sys
 import argparse
 
-# root_dir = '/path/to/wikihow-GOSC' // specify your own
-# os.environ['PYTORCH_TRANSFORMERS_CACHE']="/path/to/.cache/transformers" // specify your own
+root_dir = '/path/to/wikihow-GOSC' # specify your own
+# os.environ['PYTORCH_TRANSFORMERS_CACHE']="/path/to/.cache/transformers" # specify your own
+
+# Example:
+root_dir = '/nlp/data/lyuqing-zharry/wikihow_probing/wikihow-GOSC'
+os.environ['PYTORCH_TRANSFORMERS_CACHE']= "/nlp/data/lyuqing-zharry/wikihow_probing/.cache/transformers"
+
 os.chdir(root_dir)
 
 # set max cpu threads
@@ -43,11 +48,6 @@ parser.add_argument("--model",
         required=False,
         help="Model architecture to use.",
     )
-parser.add_argument(
-    "--no_fp16",
-    action="store_true",
-    help="Not to use 16-bit precision training.",
-)
 parser.add_argument(
     "--t_bsize", 
     default='8', 
@@ -93,16 +93,35 @@ parser.add_argument(
 
 args = parser.parse_args()
 
-model_name = {
+# model abbr to model type 
+model_type_dict = {
+  'roberta': 'roberta',
+  'roberta-l': 'roberta',
+  'bert': 'bert',
+  'mbert': 'bert',
+  'xlmr': 'xlm-roberta',
+  'xlmr-l': 'xlm-roberta',
+  'order_en_mbert': ' bert', # our own model
+  'step_en_mbert': 'bert', # our own model
+}
+
+# model abbr to model name
+model_name_dict = {
   'roberta': 'roberta-base',
   'roberta-l': 'roberta-large',
   'bert': 'bert-base-uncased',
   'mbert': 'bert-base-multilingual-uncased',
-  'xlnet': 'xlnet-base-cased',
   'xlmr': 'xlm-roberta-base',
   'xlmr-l': 'xlm-roberta-large',
-  'gpt': 'gpt2',
 }
+
+os.environ['MODEL_TYPE'] = model_type_dict[args.model]
+
+if args.model in model_name_dict.keys():
+	os.environ['MODEL_NAME_OR_PATH'] = model_name_dict[args.model] # existing ckpts
+else:
+	os.environ['MODEL_NAME_OR_PATH'] = model_name[args.model] # our own model
+
 
 os.environ['CUDA_VISIBLE_DEVICES'] = args.cuda
 
@@ -110,13 +129,10 @@ os.environ['CUDA_VISIBLE_DEVICES'] = args.cuda
 os.environ['TASK_NAME'] = 'WNLI'
 os.environ['SCRIPT_NAME'] = 'run_glue.py'
 
-# TODO
-os.environ['DATA_DIR'] = f'data/{args.target.split('_')[1]}'
-os.environ['OUTPUT_DIR'] = f'output_dir/{args.target.split('_')[1]}'
-  
-os.environ['DATA_CONFIG_STR'] = args.target 
 
-os.environ['OUTPUT_CONFIG_STR'] = args.target + '_' + args.model
+os.environ['DATA_DIR'] = f'data_dir/subtasks/{args.target}'
+os.environ['OUTPUT_DIR'] = f'output_dir/{args.target}_{args.model}' # output dir name format
+  
 
 print('Running mode: ', args.mode)
 
@@ -124,65 +140,42 @@ print('Running mode: ', args.mode)
 ## train and eval
 if args.mode == 'train_eval':
     os.system(f'python -u transformers/examples/$SCRIPT_NAME \
-                --model_type {args.model} \
+                --model_type $MODEL_TYPE \
                 --task_name $TASK_NAME \
-                --model_name_or_path {model_name[args.model]} \
+                --model_name_or_path $MODEL_NAME_OR_PATH \
+                --data_dir $DATA_DIR \
+                --output_dir $OUTPUT_DIR \
                 --do_train \
                 --do_eval \
                 --do_lower_case \
                 --save_steps {args.save_steps} \
-                --data_dir $DATA_DIR/$DATA_CONFIG_STR \
                 --evaluate_during_training \
                 --learning_rate {args.lr} \
                 --num_train_epochs {args.epochs} \
                 --max_seq_length {args.max_seq_length} \
-                --output_dir $OUTPUT_DIR/$OUTPUT_CONFIG_STR \
                 --per_gpu_eval_batch_size={args.e_bsize} \
                 --per_gpu_train_batch_size={args.t_bsize} \
                 --gradient_accumulation_steps 2 \
                 --overwrite_output \
-                {'--fp16' if not args.no_fp16 else ''} \
+                --fp16 \
                 --prob \
                 --logging_steps {args.logging_steps}'
              )
     
 ## eval only
 elif args.mode == 'eval':
-    if args.source: # evaluate a trained model
-        os.system('python -u transformers/examples/$SCRIPT_NAME \
-                    --model_type '+ args.model + \
-                  ' --task_name $TASK_NAME \
-                    --model_name_or_path $OUTPUT_CONFIG_STR \
-                    --do_eval \
-                    --do_lower_case \
-                    --data_dir $DATA_DIR/$DATA_CONFIG_STR \
-                    --max_seq_length ' + args.max_seq_length + \
-                  ' --output_dir $OUTPUT_CONFIG_STR \
-                    --per_gpu_eval_batch_size=' + args.e_bsize + \
-                  ' --overwrite_output' + \
-                 (' --fp16 ' if not args.no_fp16 else '') + \
-                 (' --prob ' if args.prob else '') + \
-                  ' --run_name $RUN_NAME' + \
-                 (' --nowab ' if args.nowab else '') + \
-                 (' --overwrite_cache ' if args.overwrite_cache else '') + \
-                 (' --no_cache ' if args.no_cache else '')
-                 )
-    else: # evaluate an untrained model
-        os.system('python -u transformers/examples/$SCRIPT_NAME \
-                    --model_type '+ args.model + \
-                  ' --task_name $TASK_NAME \
-                    --model_name_or_path ' + model_name[args.model] + \
-                  ' --do_eval \
-                    --do_lower_case \
-                    --data_dir $DATA_DIR/$DATA_CONFIG_STR \
-                    --max_seq_length ' + args.max_seq_length + \
-                  ' --output_dir $OUTPUT_DIR/$OUTPUT_CONFIG_STR \
-                    --per_gpu_eval_batch_size=' + args.e_bsize + \
-                  ' --overwrite_output' + \
-                 (' --fp16 ' if not args.no_fp16 else '') + \
-                 (' --prob ' if args.prob else '') + \
-                  ' --run_name $RUN_NAME' + \
-                 (' --nowab ' if args.nowab else '') + \
-                 (' --overwrite_cache ' if args.overwrite_cache else '')+ \
-                 (' --no_cache ' if args.no_cache else '')
-                 )
+	os.system(f'python -u transformers/examples/$SCRIPT_NAME \
+            --model_type $MODEL_TYPE \
+            --task_name $TASK_NAME \
+            --model_name_or_path $MODEL_NAME_OR_PATH \
+            --do_eval \
+            --do_lower_case \
+            --data_dir $DATA_DIR \
+            --output_dir $OUTPUT_DIR \
+            --max_seq_length {args.max_seq_length} \
+            --per_gpu_eval_batch_size={args.e_bsize} \
+            --overwrite_output \
+            --fp16 \
+            --prob'
+         )
+
