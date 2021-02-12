@@ -77,15 +77,16 @@ class EvaluateContruction():
     self.model = model
     self.lang = lang
     if variation == '':
-      self.gold_path = f'/mnt/nlpgridio3/data/lyuqing-zharry/wikihow_probing/data/wikihow_data/multilingual/script_splits/script_{self.lang}.json'
-      self.step_output_path = f'/mnt/nlpgridio3/data/lyuqing-zharry/wikihow_probing/output_dir/multilingual/{self.lang}/step_{self.lang}_newsplit_{self.model}/model_pred.csv'
-      self.order_output_path = f'/mnt/nlpgridio3/data/lyuqing-zharry/wikihow_probing/output_dir/multilingual/{self.lang}/order_{self.lang}_newsplit_allpair_double_gs+gs_shuffle_{self.model}/model_pred.csv'
+      self.gold_path = f'../data_dir/script_splits/script_{self.lang}.json'
+      self.step_output_path = f'../output_dir/step_{self.lang}_{self.model}/model_pred.csv'
+      self.order_output_path = f'../output_dir/order_{self.lang}_{self.model}/model_pred.csv'
+    # To use other modes, you need to change the path
     elif variation == 'c0':
-      self.gold_path = f'/mnt/nlpgridio3/data/lyuqing-zharry/wikihow_probing/data/wikihow_data/multilingual/script_splits/script_{self.lang}.json'
+      self.gold_path = f'../data_dir/script_splits/script_{self.lang}.json'
       self.step_output_path = f'/mnt/nlpgridio3/data/lyuqing-zharry/wikihow_probing/output_dir/multilingual/en/step_{self.lang}_newsplit_step_en_newsplit_{self.model}/model_pred.csv'
       self.order_output_path = f'/mnt/nlpgridio3/data/lyuqing-zharry/wikihow_probing/output_dir/multilingual/en/order_{self.lang}_newsplit_allpair_double_gs+gs_shuffle_order_en_newsplit_allpair_double_gs+gs_shuffle_{self.model}/model_pred.csv'
     elif variation == 'mtl':
-      self.gold_path = f'/mnt/nlpgridio3/data/lyuqing-zharry/wikihow_probing/data/wikihow_data/multilingual/script_splits/script_{self.lang}.json'
+      self.gold_path = f'../data_dir/script_splits/script_{self.lang}.json'
       self.step_output_path = f'/mnt/nlpgridio3/data/lyuqing-zharry/wikihow_probing/output_dir/multitask/step_{self.lang}_newsplit_order_{self.lang}_newsplit_allpair_double_gs+gs_shuffle/step_model_pred.csv'
       self.order_output_path = f'/mnt/nlpgridio3/data/lyuqing-zharry/wikihow_probing/output_dir/multitask/step_{self.lang}_newsplit_order_{self.lang}_newsplit_allpair_double_gs+gs_shuffle/order_model_pred.csv'
     elif variation == 'transfer':
