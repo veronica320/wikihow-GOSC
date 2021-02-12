@@ -102,7 +102,16 @@ python finetune.py --mode eval --model step_en_mbert --max_seq_length 64 --targe
 
 ### Generating scripts & Evaluating on the GOSC task
 
-[TODO: Harry can add details]
+Using the model output above, evaluation and generation can be done with
+
+```
+python eval_contruction.py --lang [language] --model [model_name] --task [step|order|combined|everything] (optional) --print
+```
+If `--task` is set to _step_, recall and gain are measured; if _order_, Kendall's Tau by ordering the gold script is measured; if _combined_, recall, gain and Tau of the generated script is measured; if _everything_, all of the above are measured.
+Example:
+```
+python eval_contruction.py --lang en --model mbert --task combined --print
+```
 
 
 ## License
