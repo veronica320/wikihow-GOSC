@@ -120,7 +120,7 @@ os.environ['MODEL_TYPE'] = model_type_dict[args.model]
 if args.model in model_name_dict.keys():
 	os.environ['MODEL_NAME_OR_PATH'] = model_name_dict[args.model] # existing ckpts
 else:
-	os.environ['MODEL_NAME_OR_PATH'] = model_name[args.model] # our own model
+	os.environ['MODEL_NAME_OR_PATH'] = f'output_dir/{args.model}' # our own model
 
 
 os.environ['CUDA_VISIBLE_DEVICES'] = args.cuda
@@ -131,8 +131,8 @@ os.environ['SCRIPT_NAME'] = 'run_glue.py'
 
 
 os.environ['DATA_DIR'] = f'data_dir/subtasks/{args.target}'
-os.environ['OUTPUT_DIR'] = f'output_dir/{args.target}_{args.model}' # output dir name format
-  
+os.environ['OUTPUT_DIR'] = f'output_dir/{args.target}_{args.model}'
+
 
 print('Running mode: ', args.mode)
 
@@ -171,7 +171,7 @@ elif args.mode == 'eval':
             --do_eval \
             --do_lower_case \
             --data_dir $DATA_DIR \
-            --output_dir $OUTPUT_DIR \
+            --output_dir $MODEL_NAME_OR_PATH \
             --max_seq_length {args.max_seq_length} \
             --per_gpu_eval_batch_size={args.e_bsize} \
             --overwrite_output \

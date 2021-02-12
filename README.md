@@ -50,7 +50,7 @@ The pretrained models can be downloaded from [here](https://gofile.io/d/Yk9QII) 
 
 ## Usage
 
-### Finetuning models on subtasks
+### Finetuning & evaluating models on subtasks
 
 * Prepare your data according to the sample format. Put the `train.tsv` and `dev.tsv` files under `data_dir/{subtask_name}/`.
 
@@ -81,6 +81,8 @@ If you'd like to finetune pretrained models, set it as the name of the model dir
 
 * Prepare your data according to the sample format. Put the `dev.tsv` file under `data_dir/{subtask_name}/`.
 
+* Put the model you want to evaluate under `output_dir/{model_name}`.
+
 * Specify your own paths at the beginning of `finetune.py`.
 
 * Go to `source/`, and run 
@@ -92,10 +94,10 @@ python finetune.py --mode eval --model [model_name] --max_seq_length [max_seq_le
 Example:
 
 ```
-python finetune.py --mode eval --model mbert --max_seq_length 64 --target step_en --e_bsize 128 --cuda 6
+python finetune.py --mode eval --model step_en_mbert --max_seq_length 64 --target step_en --e_bsize 128 --cuda 6
 ```
 
-* The model output will be in `output_dir/{subtask_name}_{model_name}`, e.g. `output_dir/step_en_mbert`. It will contain the model's predictions on the dev set (`model_pred.csv`) and the evaluation results (`eval_results.txt`; note that this isn't final evaluation results on the GOSC task).
+* The model output will be in `output_dir/{model_name}`, i.e. the model directory you have initially, e.g. `output_dir/step_en_mbert`. It will contain the model's predictions on the dev set (`model_pred.csv`) and the evaluation results (`eval_results.txt`; note that this isn't final evaluation results on the GOSC task).
 
 
 ### Generating scripts & Evaluating on the GOSC task
