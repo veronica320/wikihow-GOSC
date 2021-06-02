@@ -13,11 +13,11 @@ Note that the yml file might be overkilling, since it also contains dependencies
 
 ### Data
 
-Sample data can be downloaded from [here](https://gofile.io/d/Y9va9V) (Passcode:wikihowgosc), and put under `data_dir/`.
+Sample data can be downloaded from [here](https://drive.google.com/file/d/1-O97ObwYVjQoR8KDkJ_p9DWKadpndcEy/view?usp=sharing), and put under `data_dir/`.
 
 ### Pretrained models
 
-The pretrained models can be downloaded from [here](https://gofile.io/d/Yk9QII) (Passcode:wikihowgosc), and put under `output_dir/`.
+The pretrained models can be downloaded from [here](https://drive.google.com/file/d/1J9Vnrh1tBRnOrLnqJT2prGqm3v-6EqO1/view?usp=sharing), and put under `output_dir/`.
 
 
 ## Repo Structure and File Format
