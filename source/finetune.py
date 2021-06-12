@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 import transformers
-import tensorboardX
-import mxnet
 import os 
 import sys
 import argparse
