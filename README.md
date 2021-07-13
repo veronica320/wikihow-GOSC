@@ -72,7 +72,7 @@ Details on the arguments are in `finetune.py`.
 
 If you'd like to finetune a model from scratch, set the `--model` argument as `mbert`, `xlm-roberta`, etc. 
 
-If you'd like to finetune pretrained models, set it as the name of the model directory under `output_dir`, e.g. `step_en_mbert`.
+If you'd like to finetune pretrained models, set it as the name of the model directory _under_ `output_dir`, e.g. `step_en_mbert`. Note that you shouldn't include `output_dir/` in the argument.
 
 
 * The model output will be in `output_dir/{subtask_name}_{model_name}`, e.g. `output_dir/step_en_mbert`. It will contain the trained model (`pytorch_model.bin`) and its predictions on the dev set (`model_pred.csv`).
