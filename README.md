@@ -9,7 +9,7 @@ This is the code repository associated with the paper in submission < Goal-Orien
 
 Note that the yml file might be overkilling, since it also contains dependencies we used for other parts of the project. You might only need a few essential packages (e.g. transformers) to run the code in this repo.
 
-- When installing transformers, make sure you install it from source and put it under the root directory of this repo. This is because we need the scripts under `transformers/examples/`. Also, please replace the `run_glue.py` file `transformers/examples/` by our `source/run_glue.py`. We modified it to allow the output of prediction probability scores.
+- When installing transformers, make sure you **install it from source** and put it under the root directory of this repo. This is because we need the scripts under `transformers/examples/`. Also, please replace the `run_glue.py` file `transformers/examples/` by our `source/run_glue.py`. We modified it to allow the output of prediction probability scores.
 
 ### Data
 
