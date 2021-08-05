@@ -1,5 +1,5 @@
 # wikihow-GOSC
-This is the code repository associated with the paper to appear at [INLG2021](https://inlg2021.github.io/): < Goal-Oriented Script Construction >. 
+This is the code repository accompanying the paper to appear at [INLG2021](https://inlg2021.github.io/): < Goal-Oriented Script Construction >. 
 
 ## Get started
 
