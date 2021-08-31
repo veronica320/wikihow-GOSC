@@ -7,9 +7,7 @@ This is the code repository accompanying the paper to appear at [INLG2021](https
 
 - `environment.yml` specifies the conda environment needed running the code. You can create the environment using it according to [this guildeline](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-from-an-environment-yml-file).
 
-Note that the yml file might be overkilling, since it also contains dependencies we used for other parts of the project. You might only need a few essential packages (e.g. transformers) to run the code in this repo.
-
-- When installing transformers, make sure you **install it from source** and put it under the root directory of this repo. This is because we need the scripts under `transformers/examples/`. Also, please replace the `run_glue.py` file `transformers/examples/` by our `source/run_glue.py`. We modified it to allow the output of prediction probability scores.
+- When installing transformers, make sure you [**install it from source**](https://github.com/huggingface/transformers/tree/v2.4.1#from-source) and put it under the root directory of this repo. This is because we need the scripts under `transformers/examples/`. Also, please replace the `run_glue.py` file `transformers/examples/` by our `source/run_glue.py`. We modified it to allow the output of prediction probability scores.
 
 ### Data
 
