@@ -13,7 +13,11 @@ Note that the yml file might be overkilling, since it also contains dependencies
 
 ### Data
 
-Sample data can be downloaded from [here](https://drive.google.com/file/d/1-O97ObwYVjQoR8KDkJ_p9DWKadpndcEy/view?usp=sharing), and put under `data_dir/`.
+#### Multilingual wikiHow Script Corpus
+The entire corpus is available [here](https://drive.google.com/file/d/1AqAocrNFEPhBAfa5ATCj-3xMWbq659ME/view?usp=sharing).
+
+#### Sample data to run experiments
+To run the experiments following the instructions in the repo, you can use the sample data [here](https://drive.google.com/file/d/1-O97ObwYVjQoR8KDkJ_p9DWKadpndcEy/view?usp=sharing), and put it under `data_dir/`.
 
 ### Pretrained models
 
