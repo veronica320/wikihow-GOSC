@@ -87,7 +87,7 @@ If you'd like to finetune pretrained models, set it as the name of the model dir
 
 * If you haven't done A, prepare your evaluation data according to the sample format (See `Repo Structure and File Format` -> `subtasks/`). Put the `dev.tsv` file under `data_dir/{subtask_name}/`.
 
-* Put the model you want to evaluate under `output_dir/{model_name}`.
+* Put the model you want to evaluate under `output_dir/{model_name}`. If you started from A, the models should already be there. Otherwise, you should download our pretrained models under `Get started`, and put them under `output_dir`.
 
 * Specify your own paths at the beginning of `finetune.py`.
 
