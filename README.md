@@ -50,9 +50,11 @@ The pretrained models can be downloaded from [here](https://drive.google.com/fil
 
 ## Usage
 
-### Finetuning & evaluating models on subtasks
+If you want to finetune the models yourself, please start from step A. If you want to directly do inference with our pretrained models, please start from step B.
 
-* Prepare your data according to the sample format. Put the `train.tsv` and `dev.tsv` files under `data_dir/{subtask_name}/`.
+### A. Finetuning & evaluating models on subtasks
+
+* Prepare your data according to the sample format (See `Repo Structure and File Format` -> `subtasks/`). Put the `train.tsv` and `dev.tsv` files under `data_dir/{subtask_name}/`.
 
 * Specify your own paths at the beginning of `finetune.py`.
 
@@ -77,9 +79,9 @@ If you'd like to finetune pretrained models, set it as the name of the model dir
 
 * The model output will be in `output_dir/{subtask_name}_{model_name}`, e.g. `output_dir/step_en_mbert`. It will contain the trained model (`pytorch_model.bin`) and its predictions on the dev set (`model_pred.csv`).
 
-### Evaluating models on subtasks
+### B. Doing inference & Evaluating on two subtasks
 
-* Prepare your data according to the sample format. Put the `dev.tsv` file under `data_dir/{subtask_name}/`.
+* If you haven't done A, prepare your evaluation data according to the sample format (See `Repo Structure and File Format` -> `subtasks/`). Put the `dev.tsv` file under `data_dir/{subtask_name}/`.
 
 * Put the model you want to evaluate under `output_dir/{model_name}`.
 
@@ -100,9 +102,9 @@ python finetune.py --mode eval --model step_en_mbert --max_seq_length 64 --targe
 * The model output will be in `output_dir/{model_name}`, i.e. the model directory you have initially, e.g. `output_dir/step_en_mbert`. It will contain the model's predictions on the dev set (`model_pred.csv`) and the evaluation results (`eval_results.txt`; note that this isn't final evaluation results on the GOSC task).
 
 
-### Generating scripts & Evaluating on the GOSC task
+### C. Generating scripts & Evaluating on the GOSC task
 
-Using the model output above, evaluation and generation can be done with
+Using the model output from B, evaluation and generation can be done with
 
 ```
 python eval_contruction.py --lang [language] --model [model_name] --task [step|order|combined|everything] (optional) --print
