@@ -52,9 +52,15 @@ The pretrained models can be downloaded from [here](https://drive.google.com/fil
 
 ## Usage
 
-If you want to finetune the models yourself, please start from step A. If you want to directly do inference with our pretrained models, please start from step B.
+### Generation-based pipeline
 
-### A. Finetuning & evaluating models on subtasks
+Please follow instructions in [this colab notebook](https://colab.research.google.com/drive/1W_-RcZD-A2SfkqOkOOI0mNJEy9f5J9Uz?usp=sharing).
+
+### Retrieval-based pipeline
+
+If you want to finetune the pipeline yourself, please start from step A. If you want to directly do inference with our pretrained pipeline, please start from step B.
+
+#### A. Finetuning & evaluating models on subtasks
 
 * Prepare your data according to the sample format (See `Repo Structure and File Format` -> `subtasks/`). Put the `train.tsv` and `dev.tsv` files under `data_dir/{subtask_name}/`.
 
@@ -81,7 +87,7 @@ If you'd like to finetune pretrained models, set it as the name of the model dir
 
 * The model output will be in `output_dir/{subtask_name}_{model_name}`, e.g. `output_dir/step_en_mbert`. It will contain the trained model (`pytorch_model.bin`) and its predictions on the dev set (`model_pred.csv`).
 
-### B. Doing inference & Evaluating on two subtasks
+#### B. Doing inference & Evaluating on two subtasks
 
 * If you haven't done A, prepare your evaluation data according to the sample format (See `Repo Structure and File Format` -> `subtasks/`). Put the `dev.tsv` file under `data_dir/{subtask_name}/`.
 
@@ -104,7 +110,7 @@ python finetune.py --mode eval --model step_en_mbert --max_seq_length 64 --targe
 * The model output will be in `output_dir/{model_name}`, i.e. the model directory you have initially, e.g. `output_dir/step_en_mbert`. It will contain the model's predictions on the dev set (`model_pred.csv`) and the evaluation results (`eval_results.txt`; note that this isn't final evaluation results on the GOSC task).
 
 
-### C. Generating scripts & Evaluating on the GOSC task
+#### C. Generating scripts & Evaluating on the GOSC task
 
 Using the model output from B, evaluation and generation can be done with
 
