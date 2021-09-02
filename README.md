@@ -117,7 +117,7 @@ Using the model output from B, evaluation and generation can be done with
 ```
 python eval_contruction.py --lang [language] --model [model_name] --task [step|order|combined|everything] (optional) --print
 ```
-If `--task` is set to _step_, recall and gain are measured; if _order_, Kendall's Tau by ordering the gold script is measured; if _combined_, recall, gain and Tau of the generated script is measured; if _everything_, all of the above are measured.
+If `--task` is set to _step_, recall and gain are measured; if _order_, Kendall's Tau by ordering the gold script is measured; if _combined_, recall, gain and Tau of the generated script is measured; if _everything_, all of the above are measured. If `--print` is specified, the constructed scritp will be directed to standard output. 
 Example:
 ```
 python eval_contruction.py --lang en --model mbert --task combined --print
