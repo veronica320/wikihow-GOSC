@@ -25,8 +25,7 @@ The pretrained models can be downloaded from [here](https://drive.google.com/fil
 ## Repo Structure and File Format
 
 - `data_dir/`: You should download `data.zip` and put its *subfolders* here.
-	- `script_splits/`: The `script_en.json` file contains the wikiHow English script corpus, split into train and test. The file is a json consisting of two keys, `"train"` and `"test"`. Each split is a list of articles. 
-	[TODO: Harry can add more details] 
+	- `script_splits/`: The `script_en.json` file contains the wikiHow English script corpus, split into train and test. The file is a json consisting of two keys, `"train"` and `"test"`. Each split is a list of articles. See more details in the accompanying README.
 	
 	- `subtasks/`: This is the sample data for the two subtasks of the retrieval-based pipeline. You should format your custom data accordingly.
 		- `step_en/`: This is the data for the step inference task. `train.tsv` is the *complete* train data, and `dev.tsv` is the *sample* dev data (Since we only train on 50 negative candidates cach article, but evaluate on all in-category negative candidates). 
