@@ -15,7 +15,7 @@ This is the code repository accompanying the paper to appear at [INLG2021](https
 The entire corpus is available [here](https://drive.google.com/file/d/1AqAocrNFEPhBAfa5ATCj-3xMWbq659ME/view?usp=sharing).
 
 #### Sample data to run experiments
-To run the experiments following the instructions in the repo, you can use the sample data [here](https://drive.google.com/file/d/1-O97ObwYVjQoR8KDkJ_p9DWKadpndcEy/view?usp=sharing), and put it under `data_dir/`.
+To run the experiments following the instructions in the repo, you can use the sample data [here](https://drive.google.com/file/d/1MfoI2TfMgKj3lxnto2rMFblSYVVBUPH0/view?usp=sharing), and put it under `data_dir/`.
 
 ### Pretrained models
 
@@ -25,16 +25,17 @@ The pretrained models can be downloaded from [here](https://drive.google.com/fil
 ## Repo Structure and File Format
 
 - `data_dir/`: You should download `data.zip` and put its *subfolders* here.
-	- `script_splits/`: The `script_en.json` file contains the wikiHow English script corpus, split into train and test. The file is a json consisting of two keys, `"train"` and `"test"`. Each split is a list of articles. See more details in the accompanying README.
+	- `script_splits/`: The `script_en.json` file contains an English sample of the wikiHow English script corpus, split into train and test. The file is a json consisting of two keys, `"train"` and `"test"`. Each split is a list of articles. See more details in the accompanying README.
 	
-	- `subtasks/`: This is the sample data for the two subtasks of the retrieval-based pipeline. You should format your custom data accordingly.
-		- `step_en/`: This is the data for the step inference task. `train.tsv` is the *complete* train data, and `dev.tsv` is the *sample* dev data (Since we only train on 50 negative candidates cach article, but evaluate on all in-category negative candidates). 
+	- `subtasks/`: This is the **sample data** for the two subtasks of the retrieval-based pipeline. `train.tsv` contains the training data, and `dev.tsv` contains the evaluation data. Note that this is for demonstration purposes only. If you want to reproduce the results in our paper, you need to download the full corpus above ("Multilingual wikiHow Script Corpus"). If you only want to construct custom scripts using our pretrained models, you can refer to the dev files and format your data accordingly. The dev files are for one example target script, "Dress Effectively".
+		- `step_en/`: This is the data for the Step Inference task.
 		The data format is ```[Index]\t[Goal]\t[Candidate step]\t[Label]```. 
 		Label=1 means the candidate step is a step of the given goal, 0 means otherwise.
 
-		- `order_en/`: This is the data for the step ordering task. `train.tsv` is the *sample* train data, and `dev.tsv` is the *complete* dev data.
+		- `order_en/`: This is the data for the Step Ordering task.  
 		The data format is ```[Index]\t[Goal]? [Step A]\t[Goal]? [Step B]\t[Label]``` (empirically the best design choice).
 		Label=0 means Step A precedes B, 0 means otherwise.
+		Note that the step candidates in our sample `dev.tsv` are **gold** steps, so that the Step Ordering module can be evaluated independently. If you want to run the entire retrieval-based pipeline, then you should take the output of the Step Inference task and format the top L (=script length) retrieved step candidates in this way, as input to the Ordering module.
 		
 - `output_dir/`: This is the output directory where models and predictions are stored. You should place the *subfolders* (but not the `models/` folder itself) of the downloaded `model.zip` under it. It should look like this:
 	- `step_en_mbert/`
@@ -87,6 +88,8 @@ If you'd like to finetune pretrained models, set it as the name of the model dir
 * The model output will be in `output_dir/{subtask_name}_{model_name}`, e.g. `output_dir/step_en_mbert`. It will contain the trained model (`pytorch_model.bin`) and its predictions on the dev set (`model_pred.csv`).
 
 #### B. Doing inference & Evaluating on two subtasks
+
+If you only want to evaluate models on the two subtasks (Step Inference, Step Ordering) independently, then you can do the following steps for both in parallel. If you want to use the entire retrieval-based pipeline to construct scripts, then you should do the following steps for Step Inference first, and then use its output as the input to the Step Ordering subtask.
 
 * If you haven't done A, prepare your evaluation data according to the sample format (See `Repo Structure and File Format` -> `subtasks/`). Put the `dev.tsv` file under `data_dir/{subtask_name}/`.
 
